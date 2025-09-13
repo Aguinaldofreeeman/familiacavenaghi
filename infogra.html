@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico - A Herança Italiana em Itapira, SP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Tuscan Sun (for print) -->
+    <!-- Application Structure Plan: A single, tall, non-interactive HTML page designed to be printed or saved as a static image/PDF. The structure is a vertical narrative flow: Title -> Introduction -> Timeline of the Saga -> Key Data Visualization -> Legacy Landmarks -> Family Spotlight -> Footer. This top-to-bottom layout is the most effective for a static infographic format, guiding the reader through the story logically. -->
+    <!-- Visualization & Content Choices: 
+        1. Report Info: Historical overview. Goal: Show chronological change. Method: Vertical Timeline (styled HTML/CSS). Justification: Classic and clear for static infographics.
+        2. Report Info: Coffee production data. Goal: Compare key metrics. Method: Static Bar Representation (styled HTML divs). Justification: Replicates a bar chart's visual impact without needing JS, perfect for print.
+        3. Report Info: Points of interest. Goal: Organize and present locations. Method: Icon + Text Blocks (HTML with Unicode characters). Justification: Visually engaging and space-efficient.
+        4. Report Info: Cavenaghi family. Goal: Highlight key facts. Method: Styled Text Box. Justification: Focuses attention on this specific case study.
+        - Confirmation: No JS libraries needed. All visuals are pure HTML/CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F5F5DC;
+            -webkit-print-color-adjust: exact;
+            color-adjust: exact;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+        }
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+        .infographic-container {
+            width: 800px;
+            margin: auto;
+            background-color: #FFFDF5;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 0.5rem;
+            left: -2.3rem;
+            width: 1rem;
+            height: 1rem;
+            background-color: #E57373; /* Terracotta */
+            border-radius: 50%;
+            border: 3px solid #FFFDF5;
+        }
+    </style>
+</head>
+<body class="py-8">
+
+    <div class="infographic-container p-10 shadow-2xl">
+
+        <!-- Header -->
+        <header class="text-center border-b-4 border-[#5D4037] pb-6 mb-8">
+            <h1 class="text-5xl font-black text-[#5D4037]">Herança Italiana em Itapira</h1>
+            <p class="text-xl mt-2 text-[#5D4037]/90">A saga dos imigrantes que moldaram a terra do café</p>
+        </header>
+
+        <!-- A Saga -->
+        <section class="mb-10">
+            <h2 class="text-3xl font-bold text-center mb-6 text-[#E57373]">A Chegada e o Trabalho</h2>
+            <div class="flex">
+                <!-- Timeline -->
+                <div class="w-1/2 pr-6">
+                    <div class="relative pl-8 border-l-2 border-dashed border-[#81C784]">
+                        <div class="mb-6 relative timeline-item">
+                            <h4 class="text-lg font-bold text-[#E57373]">Fim do Séc. XIX</h4>
+                            <p class="text-sm mt-1">Primeiros imigrantes chegam para o trabalho crucial nas fazendas de café, substituindo a mão de obra escravizada.</p>
+                        </div>
+                        <div class="mb-6 relative timeline-item">
+                            <h4 class="text-lg font-bold text-[#E57373]">1905</h4>
+                            <p class="text-sm mt-1">Fundação da Sociedade Italiana de Itapira, fortalecendo a união e a cultura da comunidade.</p>
+                        </div>
+                        <div class="relative timeline-item">
+                            <h4 class="text-lg font-bold text-[#E57373]">Anos 1930</h4>
+                            <p class="text-sm mt-1">Auge da produção cafeeira, com a mão de obra sendo quase 100% italiana.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Data Viz -->
+                <div class="w-1/2 pl-6 border-l-2 border-gray-200">
+                    <h3 class="text-xl font-bold text-center mb-4">O Motor da Economia</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-bold text-[#5D4037]">Pés de Café Cultivados</p>
+                            <div class="flex items-center">
+                                <div class="w-full bg-[#81C784]/50 rounded-full h-6 mr-2">
+                                    <div class="bg-[#81C784] h-6 rounded-full" style="width: 95%;"></div>
+                                </div>
+                                <span class="font-bold text-lg">9.5 M</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-bold text-[#5D4037]">Força de Trabalho Rural</p>
+                             <div class="flex items-center">
+                                <div class="w-full bg-[#E57373]/50 rounded-full h-6 mr-2">
+                                    <div class="bg-[#E57373] h-6 rounded-full" style="width: 90%;"></div>
+                                </div>
+                                <span class="font-bold text-lg">~90%</span>
+                            </div>
+                             <p class="text-xs text-right mt-1">composta por italianos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legado -->
+        <section class="bg-[#F5F5DC]/60 p-6 rounded-lg mb-10">
+            <h2 class="text-3xl font-bold text-center mb-6 text-[#81C784]">Marcas de um Legado</h2>
+            <div class="grid grid-cols-3 gap-6 text-center">
+                <div>
+                    <span class="text-4xl">🏛️</span>
+                    <h4 class="font-bold mt-2">Circolo Ítalo-Brasiliano</h4>
+                    <p class="text-xs">Coração cultural da comunidade.</p>
+                </div>
+                <div>
+                    <span class="text-4xl">📜</span>
+                    <h4 class="font-bold mt-2">Museu Histórico</h4>
+                    <p class="text-xs">Guardião de documentos e memórias.</p>
+                </div>
+                <div>
+                    <span class="text-4xl">⛪</span>
+                    <h4 class="font-bold mt-2">Igreja do Salto</h4>
+                    <p class="text-xs">Marco de fé na Estrada Luís Cavenaghi.</p>
+                </div>
+                <div>
+                    <span class="text-4xl">✍️</span>
+                    <h4 class="font-bold mt-2">Casa de Menotti Del Picchia</h4>
+                    <p class="text-xs">Herança na arte e vanguarda.</p>
+                </div>
+                 <div>
+                    <span class="text-4xl">🛣️</span>
+                    <h4 class="font-bold mt-2">Avenida dos Italianos</h4>
+                    <p class="text-xs">Reconhecimento público da contribuição.</p>
+                </div>
+                 <div>
+                    <span class="text-4xl">🏡</span>
+                    <h4 class="font-bold mt-2">Bairros e Ruas</h4>
+                    <p class="text-xs">Nomes de famílias como Cavenaghi marcam a cidade.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Família Cavenaghi -->
+        <section class="mb-4">
+            <h2 class="text-3xl font-bold text-center mb-4 text-[#5D4037]">Uma Família Símbolo: Cavenaghi</h2>
+             <div class="text-center bg-white p-6 rounded-lg border-2 border-[#E57373] shadow-md">
+                <p class="text-lg">
+                    A história da família Cavenaghi, como a de <strong class="text-[#E57373]">Adelaide Cavenaghi</strong> (nascida em 1899, filha de Paolo e Santa), espelha a jornada de sucesso e integração. Hoje, seu legado é imortalizado em locais como a <strong class="text-[#5D4037]">Estrada Municipal Luís Cavenaghi</strong> e o <strong class="text-[#5D4037]">Parque Residencial Braz Cavenaghi</strong>.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="text-center text-xs text-gray-500 pt-6 mt-8 border-t-2 border-gray-200">
+             <p>Este infográfico resume a rica história da imigração italiana em Itapira, SP, com base em registros históricos e culturais da região.</p>
+        </footer>
+
+    </div>
+    
+    <div class="text-center my-4 no-print">
+        <button onclick="window.print()" class="bg-[#5D4037] text-white font-bold py-2 px-6 rounded-lg hover:bg-[#4E342E] transition-colors">
+            Salvar como PDF ou Imprimir
+        </button>
+    </div>
+
+</body>
+</html>

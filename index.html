@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Imigração Italiana em Itapira, SP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Tuscan Sun -->
+    <!-- Application Structure Plan: A single-page application designed with a clear, thematic structure. A fixed header with navigation allows users to instantly jump to one of three distinct sections: 'A Saga Italiana' (general history with a timeline and chart), 'Legado e Memória' (interactive cards for points of interest), and 'A Família Cavenaghi' (specific genealogical findings). This structure was chosen to logically separate the broad historical context from specific landmarks and the detailed family history, providing a guided yet flexible user journey for easy exploration and understanding. -->
+    <!-- Visualization & Content Choices: 
+        1. Report Info: Historical overview of Italian immigration. Goal: Show progression over time. Method: Vertical Timeline (HTML/CSS). Interaction: Visual flow. Justification: Best way to represent a chronological narrative.
+        2. Report Info: Scale of coffee production vs. Italian labor. Goal: Quantify the impact. Method: Bar Chart (Chart.js). Interaction: Tooltips on hover. Justification: Provides a powerful, immediate visual comparison of key data points.
+        3. Report Info: Points of interest. Goal: Organize and present key locations. Method: Interactive Cards (HTML/CSS Grid). Interaction: Hover effects. Justification: A modern, visually appealing way to present distinct pieces of information.
+        4. Report Info: Cavenaghi family details. Goal: Present specific findings clearly. Method: Structured Text Blocks. Interaction: None needed. Justification: Direct and clear presentation for factual, genealogical data.
+        - Library/Method: Chart.js for the canvas-based chart. All other visuals are structured HTML with Tailwind CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F5F5DC; /* Beige */
+            color: #5D4037; /* Brown */
+        }
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #E57373; /* Terracotta */
+            border-bottom-color: #E57373;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: -0.6rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            background-color: #E57373; /* Terracotta */
+            border-radius: 50%;
+            border: 3px solid #F5F5DC;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-[#5D4037]">Herança Italiana em Itapira</h1>
+            <div class="flex space-x-4 md:space-x-8 text-sm md:text-base">
+                <a href="#saga" class="nav-link pb-1">A Saga</a>
+                <a href="#legado" class="nav-link pb-1">Legado</a>
+                <a href="#familia" class="nav-link pb-1">Família Cavenaghi</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="saga" class="mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-[#5D4037]">A Saga Italiana em Terras Itapirenses</h2>
+            <p class="max-w-3xl mx-auto text-center text-lg mb-12">
+                No final do século XIX e início do século XX, um grande fluxo de imigrantes italianos chegou a Itapira. Impulsionados pela necessidade de mão de obra nas vastas lavouras de café e pelo sonho de uma vida nova, eles se tornaram a espinha dorsal da economia local, moldando a cultura e a sociedade da região de forma indelével.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative pl-8 border-l-2 border-dashed border-[#81C784]">
+                    <div class="mb-12 relative timeline-item">
+                        <h3 class="text-xl font-bold text-[#E57373]">Final do Séc. XIX</h3>
+                        <p class="mt-2">Chegada dos primeiros grupos de imigrantes italianos para substituir a mão de obra escravizada nas fazendas de café. O trabalho era árduo, sob o sistema de colonato, mas fundamental para a expansão cafeeira.</p>
+                    </div>
+                    <div class="mb-12 relative timeline-item">
+                        <h3 class="text-xl font-bold text-[#E57373]">1905</h3>
+                        <p class="mt-2">Fundação da Sociedade Italiana de Itapira, um marco na organização social e cultural da comunidade. Era um espaço para auxílio mútuo, celebração das tradições e manutenção da identidade italiana.</p>
+                    </div>
+                    <div class="relative timeline-item">
+                        <h3 class="text-xl font-bold text-[#E57373]">Década de 1930</h3>
+                        <p class="mt-2">O auge da produção de café na região. A mão de obra era quase que inteiramente italiana, sustentando uma produção de mais de 9.5 milhões de pés de café. Muitas famílias começam a adquirir suas próprias terras ou a migrar para o comércio na cidade.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white/60 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-center mb-4">Café e Imigrantes: A Força de Itapira</h3>
+                     <div class="chart-container relative h-64 md:h-80 w-full max-w-lg mx-auto">
+                        <canvas id="coffeeChart"></canvas>
+                    </div>
+                    <p class="text-center text-sm mt-4">
+                        Este gráfico ilustra a imensa escala da produção cafeeira e a predominância da força de trabalho italiana, que foram os pilares do desenvolvimento econômico de Itapira no início do século XX.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="legado" class="mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-[#5D4037]">Legado e Memória</h2>
+            <p class="max-w-3xl mx-auto text-center text-lg mb-12">
+                A presença italiana transcendeu as lavouras, deixando marcas permanentes na arquitetura, nos costumes e em instituições que perduram até hoje. Estes são alguns dos pontos de interesse que contam essa história.
+            </p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white/60 rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3 text-[#E57373]">Circolo Ítalo-Brasiliano</h3>
+                    <p>Coração da comunidade italiana, o Circolo promove eventos, como a tradicional "Festa della Nonna", mantendo vivas a cultura, a culinária e as tradições trazidas pelos imigrantes. É um ponto de encontro vital para os descendentes.</p>
+                </div>
+                <div class="bg-white/60 rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3 text-[#E57373]">Museu Histórico Municipal</h3>
+                    <p>Localizado no Parque Juca Mulato, o museu é o guardião da memória de Itapira. Seus arquivos contêm documentos preciosos da época do café, atas e registros que ajudam a traçar a história das famílias imigrantes e seu impacto na região.</p>
+                </div>
+                <div class="bg-white/60 rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3 text-[#E57373]">Igreja do Salto</h3>
+                    <p>Um belo e histórico marco arquitetônico situado na Estrada Municipal Luís Cavenaghi. A própria estrada que leva à igreja homenageia uma das mais importantes famílias italianas da região, conectando a fé, a história e o legado familiar.</p>
+                </div>
+                 <div class="bg-white/60 rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3 text-[#E57373]">Casa de Menotti Del Picchia</h3>
+                    <p>A residência do famoso escritor modernista, ele mesmo um descendente de italianos, é hoje um espaço cultural. Representa a contribuição dos ítalo-brasileiros não apenas para a agricultura, mas também para a vanguarda artística e intelectual do Brasil.</p>
+                </div>
+                 <div class="bg-white/60 rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3 text-[#E57373]">Avenida dos Italianos</h3>
+                    <p>O nome desta importante via da cidade é uma homenagem direta e um reconhecimento público da contribuição fundamental da comunidade italiana para o crescimento, a modernização e a formação da identidade de Itapira.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="familia">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-[#5D4037]">Uma Família Símbolo: Os Cavenaghi</h2>
+            <p class="max-w-3xl mx-auto text-center text-lg mb-12">
+                Entre as muitas famílias que prosperaram e contribuíram para o desenvolvimento de Itapira, a família Cavenaghi se destaca. Sua história espelha a jornada de muitos italianos, do trabalho na terra à influência duradoura na comunidade.
+            </p>
+            <div class="max-w-4xl mx-auto bg-white/60 p-8 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold mb-4 text-[#81C784]">Um Registro Histórico</h3>
+                <p class="mb-6">
+                    A presença da família em Itapira é documentada desde o final do século XIX. Um exemplo concreto encontrado em registros é o de <strong class="text-[#E57373]">Adelaide Cavenaghi</strong>, nascida na cidade em 25 de agosto de 1899. Seus pais, <strong class="text-[#E57373]">Paolo Cavenaghi</strong> e <strong class="text-[#E57373]">Santa Glerean</strong>, já estavam estabelecidos na região, exemplificando as famílias que fincaram raízes profundas em solo brasileiro.
+                </p>
+                <h3 class="text-2xl font-bold mb-4 text-[#81C784]">Um Legado Presente</h3>
+                <p>
+                    A importância da família Cavenaghi é visível até hoje na geografia da cidade. O nome da família batiza lugares públicos, um reconhecimento de sua contribuição para o crescimento de Itapira:
+                </p>
+                <ul class="list-disc list-inside mt-4 space-y-2">
+                    <li><strong>Estrada Municipal Luís Cavenaghi:</strong> Uma via rural histórica que serve como testemunho da presença da família no desenvolvimento agrícola da região.</li>
+                    <li><strong>Parque Residencial Braz Cavenaghi:</strong> Um bairro inteiro nomeado em homenagem à família, demonstrando seu impacto social e seu papel na expansão urbana do município.</li>
+                </ul>
+                <p class="mt-6">
+                   A trajetória dos Cavenaghi, de imigrantes a nomes de ruas e bairros, simboliza o sucesso e a integração da comunidade italiana em Itapira.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#5D4037] text-white/80 mt-20 py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Relatório Interativo sobre a Herança Italiana em Itapira, SP.</p>
+            <p class="text-sm">Gerado para fins informativos e culturais.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('coffeeChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pés de Café (em milhões)', 'Força de Trabalho Rural Italiana (%)'],
+                    datasets: [{
+                        label: 'Impacto Ítalo-Brasileiro no Auge do Café',
+                        data: [9.5, 90],
+                        backgroundColor: [
+                            'rgba(129, 199, 132, 0.6)', // Olive Green
+                            'rgba(229, 115, 115, 0.6)'  // Terracotta
+                        ],
+                        borderColor: [
+                            'rgba(129, 199, 132, 1)',
+                            'rgba(229, 115, 115, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#5D4037'
+                            }
+                        },
+                        y: {
+                             ticks: {
+                                color: '#5D4037'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        let value = context.parsed.x;
+                                        if (context.label.includes('%')) {
+                                            label += `Estimado em ${value}%`;
+                                        } else {
+                                            label += `${value} milhões`;
+                                        }
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = e.currentTarget.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
